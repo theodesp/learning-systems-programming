@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func main() {
+func main2() {
 	arguments := os.Args
 	for _, arg := range arguments {
 		fmt.Println(arg)
