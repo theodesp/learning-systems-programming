@@ -6,7 +6,7 @@
         "request": "launch",
         "name": "Launch",
         "program": "${workspaceFolder}/zig/zig-out/bin/zig",
-        "args": [],
+        "args": ["/Users/theo.despoudis/Workspace/learning-systems-programming/zig/example"],
         "cwd": "${workspaceFolder}/zig",
         "preLaunchTask": ""
       }

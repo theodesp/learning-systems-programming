@@ -1,5 +1,15 @@
 const std = @import("std");
 
+const IdentityContext = struct {
+        pub fn eql(_: @This(), a: u64, b: u64) bool {
+            return a == b;
+        }
+
+        pub fn hash(_: @This(), a: u64) u64 {
+            return a;
+        }
+    };
+
 pub fn main() !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
@@ -26,6 +36,21 @@ pub fn main() !void {
             try stdout.print("{d}", .{val});
         }
     }
+
+    var my_map = std.HashMap(u64, []const u8, IdentityContext, 80).init(std.heap.c_allocator);
+    try my_map.put(1, "one");
+    try my_map.put(2, "two");
+    try my_map.put(3, "three");
+
+    var my_slice = [_][]const u8{""} ** 3;
+    var idx: usize = 0;
+    var it = my_map.valueIterator();
+    while (it.next()) |val| {
+        my_slice[idx] = val.*;
+        idx += 1;
+    }
+
+    std.debug.print("my_slice: {s}\n", .{my_slice});
 
     try bw.flush(); // don't forget to flush!
 }

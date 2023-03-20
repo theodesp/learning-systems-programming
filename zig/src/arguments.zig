@@ -8,6 +8,10 @@ pub fn main() !void {
     var br = std.io.bufferedReader(stdin_file);
     const stdin = br.reader();
 
+    const argz = try std.process.argsAlloc(std.heap.c_allocator);
+    const programName = argz[0];
+    try stdout.print("{s}\n", .{programName});
+
     var args = std.process.args();
     var minus: bool = false;
     while (args.next()) |arg| {
