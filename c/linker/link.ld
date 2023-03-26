@@ -1,0 +1,7 @@
+ENTRY(run)
+SECTIONS {
+  .text : { *(.text); *(.text.*) }
+  .bss : { *(.bss); *(.bss.*) }
+  .data : { *(.data); *(.data.*) }
+  .rodata : { *(.rodata); *(.rodata.*) }
+}
