@@ -24,14 +24,12 @@ puts:
     ; save registers we will modify
     pusha         ; save registers
     mov ah, 0x0e   ; teletype output function
-
 .loop:
     lodsb ; loads next character in al
     or al, al ; verify if next char is null
     jz .done ; jump to done label is zero flag is set
     int 0x10      ; otherwise, print the character
     jmp .loop
-
 .done:
     popa          ; restore registers
     ret

@@ -4,10 +4,19 @@
       {
         "type": "lldb",
         "request": "launch",
-        "name": "Launch",
+        "name": "Launch Zig",
         "program": "${workspaceFolder}/zig/zig-out/bin/zig",
         "args": ["/Users/theo.despoudis/Workspace/learning-systems-programming/zig/example"],
         "cwd": "${workspaceFolder}/zig",
+        "preLaunchTask": ""
+      },
+      {
+        "type": "lldb",
+        "request": "launch",
+        "name": "Launch Rust",
+        "program": "${workspaceFolder}/rust/first-program/target/debug/first-program",
+        "args": [],
+        "cwd": "${workspaceFolder}/rust",
         "preLaunchTask": ""
       }
     ]

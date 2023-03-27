@@ -3,9 +3,34 @@ ASM=nasm
 SRC_DIR=src
 BUILD_DIR=build
 
-$(BUILD_DIR)/main_floppy.img: $(BUILD_DIR)/main.bin
-	cp $(BUILD_DIR)/main.bin $(BUILD_DIR)/main_floppy.img
-	truncate -s 1440K $(BUILD_DIR)/main_floppy.img
+.PHONY: all floppy_image kernel bootloader clean always
 
-$(BUILD_DIR)/main.bin: $(SRC_DIR)/main.nasm
-	$(ASM) $(SRC_DIR)/main.nasm -f bin -o $(BUILD_DIR)/main.bin
+# floppy
+floppy_image: $(BUILD_DIR)/main_floppy.img
+
+$(BUILD_DIR)/main_floppy.img: bootloader kernel
+	dd if=/dev/zero of=$(BUILD_DIR)/main_floppy.img bs=512 count=2880
+	newfs_msdos -F 12 -f 2880 $(BUILD_DIR)/main_floppy.img
+	dd if=$(BUILD_DIR)/bootloader.bin of=$(BUILD_DIR)/main_floppy.img conv=notrunc
+	mcopy -i $(BUILD_DIR)/main_floppy.img $(BUILD_DIR)/kernel.bin "::kernel.bin"
+
+
+# bootloader
+bootloader: $(BUILD_DIR)/bootloader.bin
+
+$(BUILD_DIR)/bootloader.bin: always
+	$(ASM) $(SRC_DIR)/bootloader/boot.asm -f bin -o $(BUILD_DIR)/bootloader.bin
+
+# kernel
+kernel: $(BUILD_DIR)/kernel.bin
+
+$(BUILD_DIR)/kernel.bin: always
+	$(ASM) $(SRC_DIR)/kernel/main.asm -f bin -o $(BUILD_DIR)/kernel.bin
+
+# always
+always:
+	mkdir -p $(BUILD_DIR)
+
+# clean
+clean:
+	rm -rf $(BUILD_DIR)/*
