@@ -5,3 +5,7 @@ version = 3
 [[package]]
 name = "my-first-lib"
 version = "0.1.0"
+
+[[package]]
+name = "parsemath"
+version = "0.1.0"

@@ -14,7 +14,7 @@
         "type": "lldb",
         "request": "launch",
         "name": "Launch Rust",
-        "program": "${workspaceFolder}/rust/first-program/target/debug/first-program",
+        "program": "${workspaceFolder}/rust/parsemath/target/debug/parsemath",
         "args": [],
         "cwd": "${workspaceFolder}/rust",
         "preLaunchTask": ""
