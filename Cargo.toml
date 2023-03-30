@@ -2,4 +2,5 @@
 members = [
     "rust/my-first-lib",
     "rust/parsemath",
+    "rust/template-engine",
 ]
