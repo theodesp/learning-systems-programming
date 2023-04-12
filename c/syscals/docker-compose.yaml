@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  my_copy_app:
+    image: my_copy_app
+    volumes:
+      - .:/app
+    command: ["/app/copy", "/app/input.txt", "/app/output.txt"]
